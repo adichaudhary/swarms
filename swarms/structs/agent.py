@@ -1733,7 +1733,7 @@ class Agent:
                 else:
                     # Use original method if no transforms
                     task_prompt = (
-                        self.short_memory.return_history_as_string()
+                        self.short_memory.get_str()
                     )
 
                 # Parameters
@@ -2376,7 +2376,7 @@ class Agent:
                 planning_attempts += 1
                 try:
                     task_prompt = (
-                        self.short_memory.return_history_as_string()
+                        self.short_memory.get_str()
                     )
                     response = self.call_llm(
                         task=task_prompt,
@@ -2613,7 +2613,7 @@ class Agent:
                         )
 
                         task_prompt = (
-                            self.short_memory.return_history_as_string()
+                            self.short_memory.get_str()
                         )
                         response = self.call_llm(
                             task=task_prompt,
@@ -3001,7 +3001,7 @@ class Agent:
         )
 
         try:
-            task_prompt = self.short_memory.return_history_as_string()
+            task_prompt = self.short_memory.get_str()
             response = self.call_llm(
                 task=task_prompt,
                 current_loop=0,
@@ -3863,7 +3863,7 @@ Subtask Breakdown:
         # Log the amount of tokens left in the memory and in the task
         if self.tokenizer is not None:
             tokens_used = count_tokens(
-                self.short_memory.return_history_as_string()
+                self.short_memory.get_str()
             )
             logger.info(
                 f"Tokens available: {self.context_length - tokens_used}"
@@ -3874,7 +3874,7 @@ Subtask Breakdown:
     def tokens_checks(self):
         # Check the tokens available
         tokens_used = count_tokens(
-            self.short_memory.return_history_as_string()
+            self.short_memory.get_str()
         )
         out = self.check_available_tokens()
 
